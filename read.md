@@ -95,6 +95,7 @@ WHERE category='beauty';
 5. Transactions with total_sale > 1000
 
 SELECT * FROM retail_sales WHERE total_sale > 1000;
+
 6. Number of transactions by gender and category
 
 SELECT category, gender, COUNT(*) AS total_transaction
