@@ -74,7 +74,7 @@ Users with More than 3 Orders in a Month
 
 Clone the repository
 
-git clone https://github.com/sapna-saini691/sql_projects.git
+git clone https://github.com/sapna-saini691/company.git
 
 
 Import the SQL script into MySQL
