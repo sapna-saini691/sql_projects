@@ -68,6 +68,7 @@ Distinct product categories:
 
 SELECT DISTINCT category FROM retail_sales;
 SQL Queries & Business Insights
+
 1. Sales on "2022-11-05"
 
 SELECT * FROM retail_sales WHERE sale_date = '2022-11-05';
@@ -84,11 +85,13 @@ WHERE category='clothing'
 SELECT category, SUM(total_sale) AS net_sale, COUNT(*) AS total_order
 FROM retail_sales
 GROUP BY category;
+
 4. Average age of customers in 'beauty' category
 
 SELECT ROUND(AVG(age),2) AS avg_age
 FROM retail_sales
 WHERE category='beauty';
+
 5. Transactions with total_sale > 1000
 
 SELECT * FROM retail_sales WHERE total_sale > 1000;
@@ -98,6 +101,7 @@ SELECT category, gender, COUNT(*) AS total_transaction
 FROM retail_sales
 GROUP BY category, gender
 ORDER BY gender;
+
 7. Best-selling month per year (average sale)
 
 SELECT year, month, avg_sale
@@ -110,6 +114,7 @@ FROM (
     GROUP BY YEAR(sale_date), MONTH(sale_date)
 ) AS t1
 WHERE rnk = 1;
+
 8. Top 5 customers by total sales
 
 SELECT customer_id, SUM(total_sale) AS total_sales
@@ -117,11 +122,13 @@ FROM retail_sales
 GROUP BY customer_id
 ORDER BY total_sales DESC
 LIMIT 5;
+
 9. Unique customers per category
 
 SELECT category, COUNT(DISTINCT customer_id) AS unique_customer
 FROM retail_sales
 GROUP BY category;
+
 10. Orders by shift (morning, afternoon, evening)
 
 WITH hourly_sale AS (
