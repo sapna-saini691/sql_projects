@@ -1,44 +1,109 @@
-Company Database Project 📌 Overview
+🛒 Company Database Project
 
+This project is a SQL-based database system for managing users, products, orders, payments, and sales reports. It demonstrates SQL schema design, data insertion, queries, joins, triggers, and transactions.
 
-This project demonstrates how to design and manage a company database using MySQL. It includes tables for Users, Products, Orders, Order Details, and Payments, along with queries for analysis, reporting, and triggers for automation.
+📌 Features
 
-🏗 Database Schema
+👤 User management (add, update, delete customers)
 
-users → Stores customer details.
-product → Stores product information.
-orders → Records all orders placed by users.
-order_details → Stores details of products in each order.
-peyments → Stores payment information for orders.
+📦 Product management with categories and stock tracking
 
-📋 SQL Features Covered
+🛍️ Orders and order details with product mapping
 
-✔ Create Database & Tables ✔ Insert Sample Data ✔ Update & Delete Records ✔ Joins (Inner, Left) ✔ Aggregation (SUM, AVG, COUNT, GROUP BY) ✔ Filtering with HAVING ✔ Triggers (Auto-update stock after order)
+💳 Payments tracking (UPI, Cash, Debit, Net Banking, etc.)
 
-🔑 Example Queries
+📊 Reports: sales, top-selling products, monthly sales, average order value
 
-1.	Delete users who never placed an order DELETE FROM users WHERE user_id NOT IN ( SELECT DISTINCT user_id FROM orders );
-2.	Show all products with total sold quantity SELECT p.product_id, p.product_name, COALESCE(SUM(od.quantity), 0) AS total_sold FROM product p LEFT JOIN order_details od ON p.product_id = od.product_id GROUP BY p.product_id, p.product_name ORDER BY total_sold DESC;
-3.	Create Trigger to reduce product stock automatically DELIMITER $$
-CREATE TRIGGER reduce_product_stock AFTER INSERT ON order_details FOR EACH ROW BEGIN UPDATE product SET stock_quantity = stock_quantity - NEW.quantity WHERE product_id = NEW.product_id; END$$
+⚡ Trigger to automatically update product stock after order insertion
+
+📂 Database Schema
+Tables Created
+
+user → stores customer details
+
+product → stores product details
+
+orders → stores order information linked with users
+
+order_details → links orders with products & quantity
+
+pyment → stores payment details
+
+Trigger → reduces product stock automatically after purchase
+
+🛠️ SQL Queries
+✅ Data Operations
+
+Inserted 20+ rows of data in user, product, orders, order_details, and pyment
+
+Updated product price
+
+Deleted users who did not place orders
+
+✅ Analytical Queries
+
+List all orders with user name and product
+
+Show all products with the number of units sold
+
+Find Top 3 selling products
+
+Calculate Monthly Sales Total
+
+Find Average Order Value per User
+
+Show Orders where total amount > 5000
+
+Created Trigger to reduce stock after order placement
+
+📊 Example Queries
+1. Monthly Sales Report
+SELECT
+    DATE_FORMAT(pyment_date, '%Y-%m') AS month,
+    SUM(amount) AS total_sales
+FROM
+    pyment
+GROUP BY
+    DATE_FORMAT(pyment_date, '%Y-%m')
+ORDER BY
+    month;
+
+2. Trigger to Reduce Stock
+DELIMITER //
+CREATE TRIGGER reduse_product_stock
+AFTER INSERT ON order_details
+FOR EACH ROW
+BEGIN
+   UPDATE product 
+   SET product_quntity = product_quntity - NEW.quntity
+   WHERE product_id = NEW.product_id;
+END//
 DELIMITER ;
-
-📊 Reports
-
-Top 3 Selling Products
-Monthly Sales Totals
-Average Order Value Per User
-Orders Greater than ₹5000
-Users with More than 3 Orders in a Month
 
 🚀 How to Run
 
-Clone the repository
-git clone https://github.com/sapna-saini691/company_database.git
-Import the SQL script into MySQL
-Run queries step by step
-Modify queries for practice and analysis
+Create a database company
 
-📌 Author 👩‍💻 Developed by [Sapna saini]
-📧 Contact: sapnasaini91207@gmail.com
+Run all table creation scripts
+
+Insert sample data
+
+Execute queries one by one
+
+Test reports and triggers
+
+📌 Future Improvements
+
+Add stored procedures for order placement
+
+Add discount & tax system
+
+Create an ER diagram for better visualization
+
+Implement front-end integration
+
+👩‍💻 Author
+
+Sapna Saini
+📍 Project created for learning SQL, database design, and data analysis
 
